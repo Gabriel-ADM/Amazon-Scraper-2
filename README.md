@@ -6,8 +6,8 @@ Node.js installed on your machine. Download it from nodejs.org.
 Clone the Repository:
 
 ```bash
-git clone <https://github.com/Gabriel-ADM/Amazon-Scraper-2>
-cd <Amazon-scraper-2>
+git clone https://github.com/Gabriel-ADM/Amazon-Scraper-2
+cd Amazon-scraper-2
 ```
 Setup Node API:
 
