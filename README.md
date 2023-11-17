@@ -27,7 +27,6 @@ cd web-page
 ```
 Run a Simple Server, if you have Python installed:
 ```bash
-Copy code
 # For Python 3
 python -m http.server
 ```
