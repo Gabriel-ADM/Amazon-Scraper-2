@@ -1,39 +1,36 @@
-Amazon Classification Scrapper README
+#Amazon Classification Scrapper
 Run Node API and Static HTML Page
-Prerequisites
+##Prerequisites
 Node.js installed on your machine. Download it from nodejs.org.
-Steps
+##Steps
 Clone the Repository:
 
-bash
-Copy code
+```bash
 git clone <https://github.com/Gabriel-ADM/Amazon-Scraper-2>
 cd <Amazon-scraper-2>
+```
 Setup Node API:
 
-bash
-Copy code
+```bash
 cd api
 npm install
-node server.js
+node index.js
+```
 The API server will start at http://localhost:3333.
 
-Setup Static HTML Page:
+##Setup Static HTML Page:
 
 Open the html file with a browser of yor choice or open a new terminal window.
 
-bash
-Copy code
+```bash
 cd web-page
-Run a Simple Server:
-
-If you have Python installed:
-
-bash
+```
+Run a Simple Server, if you have Python installed:
+```bash
 Copy code
 # For Python 3
 python -m http.server
-
+```
 Open Your Browser:
 
 Navigate to http://localhost:8000 (or the port specified by the server).
