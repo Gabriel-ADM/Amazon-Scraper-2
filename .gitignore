@@ -1,0 +1,20 @@
+# Node.js
+node_modules/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# User-specific files
+*.log
+npm-debug.log*
+
+# API generated files
+api/.env
+api/node_modules/
+api/package-lock.json
+
+# Public generated files
+public/node_modules/
+public/script.js
+public/index.html

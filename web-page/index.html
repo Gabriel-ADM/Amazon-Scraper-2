@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Amazon Ranking Scrapper</title>
+</head>
+
+<body>
+    <h1 class="text-muted m-5 text-center">Rank Amazon Product by Search</h1>
+
+    <div class="container">
+        <form id="productForm">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="productKeyword" class="form-label">Product Keyword</label>
+                    <input type="text" class="form-control" id="productKeyword" placeholder="Enter product keyword">
+                </div>
+                <div class="col-md-3">
+                    <label for="asin" class="form-label">ASIN</label>
+                    <input type="text" class="form-control" id="asin" placeholder="ASIN Code">
+                </div>
+                <div class="col-md-auto align-self-end mt-1 text-center">
+                    <button type="submit" class="btn btn-primary" onclick="getProductInfo()">Submit Search</button>
+                </div>
+            </div>
+        </form>
+        <!-- That where the product info will be shown, after the data is fetched -->
+        <div id="result" class="mt-4"></div>
+    </div>
+
+</body>
+<script>
+    function getProductInfo() {
+        // Get values from the form and prevent page from refreshing
+        event.preventDefault()
+        const productKeyword = $('#productKeyword').val();
+        let asinCode = $('#asin').val();
+
+        // Making the AJAX call
+        $.ajax({
+            url: `http://localhost:3333/api?keyword=${productKeyword}`,
+            method: 'GET',
+            success: function (data) {
+                // Filter the data the match the given ASIN code
+                const wantedProduct = data.filter(product => {
+                    return product.ASIN === asinCode;
+                })
+                // Display the returned data on the screen
+                // console.log(wantedProduct[0])
+                displayProductInfo(wantedProduct[0]);
+            },
+            error: function () {
+                alert('Error searching products information.');
+            }
+        });
+    }
+
+    function displayProductInfo(productData) {
+        let resultInfo = `
+            <div class="card">
+                <h5 class="card-title m-5 text-danger">
+                    Product with provided ASIN not found on the search with provided Keyword.
+                </h5>
+            </div>
+        `
+        if (productData !== undefined) {
+            // Format and display the product information on the screen
+            resultInfo = `
+                <div class="card">
+                    <h5 class="card-title m-5">
+                        Product with ASIN: ${productData.ASIN}. 
+                        Found in ${productData.pos}th position in best sellers searches.
+                    </h5>
+                    <img src="${productData.image}" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">${productData.name}</h5>
+                        <p class="card-text">${productData.rating} (${productData.totalRatings} ratings)</p>
+                        <p class="card-text">Price: ${productData.price}</p>
+                        <a href="${productData.link}" class="btn btn-primary">View on Amazon</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Set the HTML content of the result div
+        $('#result').html(resultInfo);
+    }
+</script>
+
+</html>
